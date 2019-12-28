@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import cx from 'classnames';
 import { Context } from '@honzachalupa/helpers';
 import { Database } from 'Helpers';
 import './style';
@@ -31,9 +32,22 @@ export default proposal => {
                 <p>Members: {membersFiltered.join(', ')}</p>
             )}
 
-            <p>Is matched: {isMatched ? 'Yes' : 'No'}</p>
-
-            <button type="button" onClick={handleSetResponse}>Change my response</button>
+            <button
+                className={
+                    cx(
+                        'response-button', {
+                            'response-yes': proposal.responses[currentUser],
+                            'is-matched': isMatched
+                        }
+                    )}
+                type="button"
+                onClick={handleSetResponse}
+            >
+                {isMatched && (
+                    <p className="match-status">It's match!</p>
+                )}
+                Respond
+            </button>
         </div>
     );
 };

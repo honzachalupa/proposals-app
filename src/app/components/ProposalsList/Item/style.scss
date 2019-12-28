@@ -2,4 +2,31 @@
     border-left: $accent-color solid 5px;
     padding-left: 10px;
     margin: 10px 0;
+
+    .response-button {
+        width: 200px;
+        height: 200px;
+        background-color: transparent;
+        color: red;
+        border: 5px solid red;
+        border-radius: 50%;
+
+        &.response-yes {
+            background-color: orange;
+            color: white;
+            border: none;
+        }
+
+        &.is-matched {
+            background-color: green;
+            color: white;
+            border: none;
+        }
+
+        .match-status {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+    }
 }
