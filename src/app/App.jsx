@@ -9,6 +9,7 @@ import './App.scss';
 import Page_Home from 'Pages/Home';
 import Page_SignUp from 'Pages/SignUp';
 import Page_SignIn from 'Pages/SignIn';
+import Page_Create from 'Pages/Create';
 import Page_NotFound from 'Pages/NotFound';
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
                     <Route component={Page_Home} path="/" exact />
                     <Route component={Page_SignUp} path="/sign-up" exact />
                     <Route component={Page_SignIn} path="/sign-in" exact />
+                    <Route component={Page_Create} path="/create" exact />
                     <Route component={Page_NotFound} exact />
                 </Switch>
             </Router>

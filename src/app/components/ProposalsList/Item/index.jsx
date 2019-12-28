@@ -13,7 +13,7 @@ export default proposal => {
 
         responses[currentUser] = !responses[currentUser];
 
-        Database.proposalsCollection.doc(proposal.id).set({
+        Database.proposals.doc(proposal.id).set({
             ...proposal,
             responses
         });

@@ -5,14 +5,12 @@ import './style';
 import Proposal from './Item';
 
 export default () => {
-    console.log('ProposalsList updated');
-
     const { currentUser } = useContext(Context);
     const [myProposals, setMyProposals] = useState([]);
     const [otherProposals, setOtherProposals] = useState([]);
 
     useEffect(() => {
-        Database.proposalsCollection.where('createdBy', '==', currentUser).onSnapshot(querySnapshot => {
+        Database.proposals.where('createdBy', '==', currentUser).onSnapshot(querySnapshot => {
             const proposals = [];
 
             querySnapshot.forEach(doc => {
@@ -25,7 +23,7 @@ export default () => {
             setMyProposals(proposals);
         });
 
-        Database.proposalsCollection.where('members', 'array-contains', currentUser).onSnapshot(querySnapshot => {
+        Database.proposals.where('members', 'array-contains', currentUser).onSnapshot(querySnapshot => {
             const proposals = [];
 
             querySnapshot.forEach(doc => {

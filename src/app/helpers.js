@@ -7,7 +7,9 @@ firebase.initializeApp(config.firebase);
 const Authentication = firebase.auth();
 
 const Database = {
-    proposalsCollection: firebase.firestore().collection('proposals')
+    ...firebase.firestore(),
+    proposals: firebase.firestore().collection('proposals'),
+    getTimestamp: () => firebase.firestore.Timestamp.now()
 };
 
 export {

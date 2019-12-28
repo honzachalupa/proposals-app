@@ -6,8 +6,6 @@ import Layout from 'Layouts/Main';
 import ProposalsList from 'Components/ProposalsList';
 
 export default withRouter(({ history }) => {
-    console.log('Page_Home updated');
-
     const { currentUser } = useContext(Context);
 
     return (
@@ -17,6 +15,7 @@ export default withRouter(({ history }) => {
                     <React.Fragment>
                         <p>{currentUser}</p>
 
+                        <button type="button" onClick={() => history.push('/create')}>Create proposal</button>
                         <button type="button" onClick={() => Authentication.signOut()}>Sign Out</button>
                     </React.Fragment>
                 ) : (
