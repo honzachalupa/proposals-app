@@ -6,6 +6,7 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Context, app } from '@honzachalupa/helpers';
 import { Authentication } from 'Helpers';
+import { ROOT, SIGN_UP, SIGN_IN, CREATE_PROPOSAL } from 'Enums/routes';
 import config from 'app-config';
 import './App.scss';
 import Page_Home from 'Pages/Home';
@@ -38,10 +39,10 @@ const App = () => {
         <Context.Provider value={{ ...state, ...globalFunctions }}>
             <Router basename={__BASENAME__}>
                 <Switch>
-                    <Route component={Page_Home} path="/" exact />
-                    <Route component={Page_SignUp} path="/sign-up" exact />
-                    <Route component={Page_SignIn} path="/sign-in" exact />
-                    <Route component={Page_Create} path="/create" exact />
+                    <Route component={Page_Home} path={ROOT} exact />
+                    <Route component={Page_SignUp} path={SIGN_UP} exact />
+                    <Route component={Page_SignIn} path={SIGN_IN} exact />
+                    <Route component={Page_Create} path={CREATE_PROPOSAL} exact />
                     <Route component={Page_NotFound} exact />
                 </Switch>
             </Router>

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Authentication } from 'Helpers';
+import { ROOT } from 'Enums/routes';
 import './style';
 
-export default () => {
+export default withRouter(({ history }) => {
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -12,7 +14,7 @@ export default () => {
 
         if (password === passwordRepeat) {
             Authentication.createUserWithEmailAndPassword(emailAddress, password).then(() => {
-                alert('Account created.');
+                history.push(ROOT);
             }).catch(error => {
                 alert(error);
             });
@@ -29,4 +31,4 @@ export default () => {
             <button type="submit">Sign Up</button>
         </form>
     );
-};
+});

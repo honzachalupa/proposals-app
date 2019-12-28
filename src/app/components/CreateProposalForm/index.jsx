@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Context } from '@honzachalupa/helpers';
 import { Database } from 'Helpers';
+import { ROOT } from 'Enums/routes';
 import './style';
 
-export default () => {
+export default withRouter(({ history }) => {
     const { currentUser } = useContext(Context);
     const [content, setContent] = useState('');
     const [lifeSpan, setLifeSpan] = useState('');
@@ -38,6 +40,8 @@ export default () => {
         e.preventDefault();
 
         Database.proposals.add(composeProposal());
+
+        history.push(ROOT);
     };
 
     return (
@@ -48,4 +52,4 @@ export default () => {
             <button type="submit">Create</button>
         </form>
     );
-};
+});
