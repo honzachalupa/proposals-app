@@ -1,53 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import cx from 'classnames';
-import { Context } from '@honzachalupa/helpers';
-import { Database } from 'Helpers';
+import { PROPOSAL_DETAIL } from 'Enums/routes';
 import './style';
+import Button from 'Components/Button';
 
-export default proposal => {
-    const { currentUser } = useContext(Context);
-    const membersFiltered = proposal.members.filter(member => member !== currentUser);
-    const isMatched = Object.values(proposal.responses).filter(reaction => !reaction).length === 0;
-
-    const handleSetResponse = () => {
-        const responses = { ...proposal.responses };
-
-        responses[currentUser] = !responses[currentUser];
-
-        Database.proposals.doc(proposal.id).set({
-            ...proposal,
-            responses
-        });
-    };
+export default withRouter(({ history, id, content, responses }) => {
+    const isMatched = Object.values(responses).filter(reaction => !reaction).length === 0;
 
     return (
-        <div data-component="ProposalsList_Item">
-            <p>Proposal: {proposal.content}</p>
-
-            {proposal.createdBy !== currentUser && (
-                <p>Create by: {proposal.createdBy}</p>
-            )}
-
-            {membersFiltered.length > 0 && (
-                <p>Members: {membersFiltered.join(', ')}</p>
-            )}
-
-            <button
-                className={
-                    cx(
-                        'response-button', {
-                            'response-yes': proposal.responses[currentUser],
-                            'is-matched': isMatched
-                        }
-                    )}
-                type="button"
-                onClick={handleSetResponse}
-            >
-                {isMatched && (
-                    <p className="match-status">It's match!</p>
-                )}
-                Respond
-            </button>
+        <div className={cx({ matched: isMatched })} data-component="ProposalsList_Item">
+            <Button label={content} onClick={() => history.push(PROPOSAL_DETAIL.replace(':id', id))} />
         </div>
     );
-};
+});

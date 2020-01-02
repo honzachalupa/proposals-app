@@ -8,6 +8,7 @@ import './style';
 export default withRouter(({ history }) => {
     const { currentUser } = useContext(Context);
     const [content, setContent] = useState('');
+    const [description, setDescription] = useState('');
     const [lifeSpan, setLifeSpan] = useState('');
     const [members, setMembers] = useState('');
 
@@ -28,6 +29,7 @@ export default withRouter(({ history }) => {
 
         return {
             content,
+            description,
             lifeSpan,
             members: membersFiltered,
             responses,
@@ -47,6 +49,7 @@ export default withRouter(({ history }) => {
     return (
         <form data-component="CreateProposalForm" onSubmit={handleCreate}>
             <input type="text" placeholder="Proposal" onChange={e => setContent(e.target.value)} />
+            <input type="text" placeholder="Description" onChange={e => setDescription(e.target.value)} />
             <input type="number" placeholder="Life span (in minutes)" onChange={e => setLifeSpan(e.target.value)} />
             <input type="text" placeholder="Members (separated with comma)" onChange={e => setMembers(e.target.value)} />
             <button type="submit">Create</button>

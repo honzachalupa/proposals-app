@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '@honzachalupa/helpers';
 import { Database } from 'Helpers';
 import './style';
-import Proposal from './Item';
+import Item from './Item';
 
 export default () => {
     const { currentUser } = useContext(Context);
@@ -40,21 +40,23 @@ export default () => {
     return (
         <div data-component="ProposalsList">
             {myProposals.length > 0 && (
-                <React.Fragment>
-                    <h2>Created by me</h2>
+                <div className="group">
+                    <h2 className="headline">Created by me</h2>
+
                     {myProposals.map(proposal => (
-                        <Proposal key={proposal.id} {...proposal} />
+                        <Item key={proposal.id} {...proposal} />
                     ))}
-                </React.Fragment>
+                </div>
             )}
 
             {otherProposals.length > 0 && (
-                <React.Fragment>
-                    <h2>Created by others</h2>
+                <div className="group">
+                    <h2 className="headline">Created by others</h2>
+
                     {otherProposals.map(proposal => (
-                        <Proposal key={proposal.id} {...proposal} />
+                        <Item key={proposal.id} {...proposal} />
                     ))}
-                </React.Fragment>
+                </div>
             )}
         </div>
     );

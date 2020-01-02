@@ -1,16 +1,9 @@
 [data-component="ProposalsList"] {
-    padding: 12px 0;
+    .group {
+        margin-bottom: 50px;
 
-    p {
-        line-height: 150%;
-
-        & + p {
-            margin-top: 10px;
+        .headline {
+            font-size: 1rem;
         }
-    }
-
-    .sample-image {
-        width: 160px;
-        margin: 10px 0;
     }
 }

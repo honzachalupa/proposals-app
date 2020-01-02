@@ -1,0 +1,28 @@
+[data-component="ProposalDetail"] {
+    .response-button {
+        width: 200px;
+        height: 200px;
+        background-color: transparent;
+        color: red;
+        border: 5px solid red;
+        border-radius: 50%;
+
+        &.response-yes {
+            background-color: $yellow-darker;
+            color: white;
+            border: none;
+        }
+
+        &.is-match {
+            background-color: $green-darker;
+            color: white;
+            border: none;
+        }
+
+        .match-status {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+    }
+}
