@@ -31,7 +31,7 @@ const App = () => {
         }
 
         Authentication.onAuthStateChanged(user => {
-            setState((prevState: IState) => ({
+            setState(prevState => ({
                 ...prevState,
                 currentUser: user && user.email
             }));

@@ -3,16 +3,18 @@ import { withRouter } from 'react-router-dom';
 import { Context } from '@honzachalupa/helpers';
 import { Database } from 'Helpers';
 import { ROOT } from 'Enums/routes';
+import IProposal from 'Interfaces/Proposal';
 import './style';
+import Button from 'Components/Button';
 
 export default withRouter(({ history }) => {
     const { currentUser } = useContext(Context);
-    const [content, setContent] = useState('');
-    const [description, setDescription] = useState('');
-    const [lifeSpan, setLifeSpan] = useState('');
-    const [members, setMembers] = useState('');
+    const [content, setContent] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [lifeSpan, setLifeSpan] = useState<number>(0);
+    const [members, setMembers] = useState<string>('');
 
-    const filterMembers = members => {
+    const filterMembers = (members: string[]) => {
         return members.map(member => member.trim());
     };
 
@@ -28,6 +30,7 @@ export default withRouter(({ history }) => {
         });
 
         return {
+            id: '',
             content,
             description,
             lifeSpan,
@@ -35,10 +38,10 @@ export default withRouter(({ history }) => {
             responses,
             createdBy: currentUser,
             createdAt: Database.getTimestamp()
-        };
+        } as IProposal;
     };
 
-    const handleCreate = e => {
+    const handleCreate = (e: React.FormEvent) => {
         e.preventDefault();
 
         Database.proposals.add(composeProposal());
@@ -47,12 +50,15 @@ export default withRouter(({ history }) => {
     };
 
     return (
-        <form data-component="CreateProposalForm" onSubmit={handleCreate}>
-            <input type="text" placeholder="Proposal" onChange={e => setContent(e.target.value)} />
+        <form className="form" data-component="CreateProposalForm" onSubmit={handleCreate}>
+            <h2 className="headline">Create a new proposal...</h2>
+
+            <input type="text" placeholder="Proposal *" onChange={e => setContent(e.target.value)} required />
             <input type="text" placeholder="Description" onChange={e => setDescription(e.target.value)} />
-            <input type="number" placeholder="Life span (in minutes)" onChange={e => setLifeSpan(e.target.value)} />
-            <input type="text" placeholder="Members (separated with comma)" onChange={e => setMembers(e.target.value)} />
-            <button type="submit">Create</button>
+            <input type="number" placeholder="Life span (in minutes)" onChange={e => setLifeSpan(Number(e.target.value))} />
+            <input type="text" placeholder="Members (separated with comma) *" onChange={e => setMembers(e.target.value)} required />
+
+            <Button className="green" label="Create" type="submit" />
         </form>
     );
 });

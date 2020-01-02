@@ -56,4 +56,26 @@ body {
         -webkit-appearance: none;
         appearance: none;
     }
+
+    .form {
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+
+        input,
+        select,
+        textarea {
+            background-color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 10px 15px;
+            margin: 12px 0;
+        }
+
+        [data-component="Button"] {
+            margin: 12px 0;
+        }
+    }
 }

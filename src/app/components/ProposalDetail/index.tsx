@@ -1,13 +1,18 @@
 import React, { useContext } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import cx from 'classnames';
 import { Context } from '@honzachalupa/helpers';
 import { Database } from 'Helpers';
+import IProposal from 'Interfaces/Proposal';
 import { ROOT } from 'Enums/routes';
 import './style';
 import Button from 'Components/Button';
 
-export default withRouter(({ proposal, history }) => {
+interface IProps extends RouteComponentProps {
+    proposal: IProposal;
+}
+
+export default withRouter(({ proposal, history }: IProps) => {
     const { currentUser } = useContext(Context);
     const membersFiltered = proposal.members.filter(member => member !== currentUser);
     const isMatched = Object.values(proposal.responses).filter(reaction => !reaction).length === 0;
@@ -24,9 +29,7 @@ export default withRouter(({ proposal, history }) => {
     };
 
     const handleDelete = () => {
-        Database.proposals.doc(proposal.id).delete();
-
-        history.push(ROOT);
+        Database.proposals.doc(proposal.id).delete().then(() => history.push(ROOT));
     };
 
     return proposal ? (
@@ -37,23 +40,13 @@ export default withRouter(({ proposal, history }) => {
                 <p>Description: {proposal.description}</p>
             )}
 
-            <button
-                className={
-                    cx(
-                        'response-button', {
-                            'response-yes': proposal.responses[currentUser],
-                            'is-match': isMatched
-                        }
-                    )}
-                type="button"
-                onClick={handleSetResponse}
-            >
+            <Button className={cx('response-button', { 'response-yes': proposal.responses[currentUser], 'is-match': isMatched })} onClick={handleSetResponse}>
                 {isMatched ? (
                     <p className="match-status">It's a match!</p>
                 ) : (
                     <p>Respond</p>
                 )}
-            </button>
+            </Button>
 
             {proposal.createdBy !== currentUser && (
                 <p>Create by: {proposal.createdBy}</p>

@@ -66,6 +66,24 @@ const cacheFilesObject = {
     }
 };
 
+const objectToArray = (inputObject, groupName = '') => {
+    let outputArray = [];
+
+    Object.keys(inputObject).forEach(subGroupName => {
+        const node = inputObject[subGroupName];
+
+        if (typeof node === 'object') {
+            outputArray = outputArray.concat(objectToArray(node, `${groupName}/${subGroupName}`));
+        } else {
+            const path = `${groupName.replace('/_root', '')}/`;
+
+            outputArray.push(path + node);
+        }
+    });
+
+    return outputArray;
+};
+
 const cacheName = 'dev-stack-cache';
 const path = __BASENAME__.substring(0, __BASENAME__.length - 1) || '';
 const cacheFiles = objectToArray(cacheFilesObject).map(url => { return path + url; });
@@ -114,23 +132,5 @@ self.addEventListener('fetch', event => {
         })
     );
 });
-
-function objectToArray(inputObject, groupName = '') {
-    let outputArray = [];
-
-    Object.keys(inputObject).forEach(subGroupName => {
-        const node = inputObject[subGroupName];
-
-        if (typeof node === 'object') {
-            outputArray = outputArray.concat(objectToArray(node, `${groupName}/${subGroupName}`));
-        } else {
-            const path = `${groupName.replace('/_root', '')}/`;
-
-            outputArray.push(path + node);
-        }
-    });
-
-    return outputArray;
-}
 
 /* eslint-enable */
