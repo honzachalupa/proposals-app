@@ -14,6 +14,13 @@ body {
     height: 100vh;
     background-color: $background-color;
 
+    /* stylelint-disable media-feature-name-no-unknown */
+
+    /* @media (prefers-color-scheme: dark) {
+        background-color: black;
+        color: white;
+    } */
+
     @media (max-width: 600px) {
         padding: 20px;
     }

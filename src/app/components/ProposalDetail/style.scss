@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    padding-top: 5vh;
+    padding-top: 2vh;
 
     @media (max-width: 600px) {
         flex-direction: column;
@@ -36,6 +36,13 @@
                 border: 5px solid red;
                 border-radius: 50%;
                 margin: 10vh 0;
+
+                @media (max-width: 600px) {
+                    width: 65vw;
+                    min-width: 65vw;
+                    height: 65vw;
+                    min-height: 65vw;
+                }
 
                 &.positive-response {
                     background-color: $yellow-darker;

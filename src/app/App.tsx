@@ -44,14 +44,14 @@ const App = () => {
         <Context.Provider value={{ ...state, ...globalFunctions }}>
             <Router basename={__BASENAME__}>
                 <Switch>
-                    <Route component={Page_Home} path={INDEX} />
-                    <Route component={Page_Home} path={ROOT} exact />
-                    <Route component={Page_SignUp} path={SIGN_UP} exact />
-                    <Route component={Page_SignIn} path={SIGN_IN} exact />
-                    <Route component={Page_CreateProposal} path={CREATE_PROPOSAL} exact />
-                    <Route component={Page_ProposalDetail} path={PROPOSAL_DETAIL} exact />
-                    <Route component={Page_ProposalDetail} path={PROPOSAL_EDIT} exact />
-                    <Route component={Page_NotFound} exact />
+                    <Route path={INDEX} component={Page_Home} />
+                    <Route path={ROOT} component={Page_Home} exact />
+                    <Route path={SIGN_UP} component={Page_SignUp} exact />
+                    <Route path={SIGN_IN} component={Page_SignIn} exact />
+                    <Route path={CREATE_PROPOSAL} component={Page_CreateProposal} exact />
+                    <Route path={PROPOSAL_DETAIL} component={Page_ProposalDetail} exact />
+                    <Route path={PROPOSAL_EDIT} component={Page_ProposalDetail} exact />
+                    <Route component={Page_NotFound} />
                 </Switch>
             </Router>
         </Context.Provider>
