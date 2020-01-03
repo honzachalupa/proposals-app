@@ -46,8 +46,9 @@ module.exports = env => {
             }),
             new WebappWebpackPlugin({
                 logo: './src/images/icon.png',
-                inject: true,
                 prefix: 'images/favicons',
+                inject: true,
+                cache: false,
                 ios: { 'apple-mobile-web-app-status-bar-style': 'black-translucent' },
                 favicons: {
                     appName: config.nameShort,
@@ -55,10 +56,10 @@ module.exports = env => {
                     developerName: 'Jan Chalupa',
                     developerURL: 'http://www.honzachalupa.cz/',
                     lang: 'cs-CZ',
-                    background: config.accentColor,
+                    background: '#FFF',
                     theme_color: config.accentColor,
                     orientation: 'portrait',
-                    start_url: 'index.html?pwa=true'
+                    start_url: `${baseName}index.html?pwa=true`
                 }
             }),
             new StyleLintPlugin(),

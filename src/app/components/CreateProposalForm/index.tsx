@@ -13,6 +13,7 @@ export default withRouter(({ history }) => {
     const [description, setDescription] = useState<string>('');
     const [lifeSpan, setLifeSpan] = useState<number>(0);
     const [members, setMembers] = useState<string>('');
+    const [isSensitive, setIsSensitive] = useState<boolean>(false);
 
     const filterMembers = (members: string[]) => {
         return members.map(member => member.trim());
@@ -36,8 +37,9 @@ export default withRouter(({ history }) => {
             lifeSpan,
             members: membersFiltered,
             responses,
+            isSensitive,
             createdBy: currentUser,
-            createdAt: Database.getTimestamp()
+            createdOn: Database.getTimestamp()
         } as IProposal;
     };
 
@@ -55,8 +57,9 @@ export default withRouter(({ history }) => {
 
             <input type="text" placeholder="Proposal *" onChange={e => setContent(e.target.value)} required />
             <input type="text" placeholder="Description" onChange={e => setDescription(e.target.value)} />
-            <input type="number" placeholder="Life span (in minutes)" onChange={e => setLifeSpan(Number(e.target.value))} />
+            <input type="number" placeholder="Life span (in hours)" onChange={e => setLifeSpan(Number(e.target.value))} />
             <input type="text" placeholder="Members (separated with comma) *" onChange={e => setMembers(e.target.value)} required />
+            <input type="checkbox" onChange={e => setIsSensitive(e.target.checked)} />Has sensitive label?
 
             <Button className="green" label="Create" type="submit" />
         </form>

@@ -10,11 +10,11 @@ export default () => {
     return (
         <section>
             <Layout>
-                <Navigation />
-
                 {currentUser && (
                     <ProposalsList />
                 )}
+
+                <Navigation />
             </Layout>
         </section>
     );

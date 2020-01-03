@@ -1,3 +1,4 @@
+export const INDEX = '/index.html';
 export const ROOT = '/';
 export const SIGN_UP = '/sign-up';
 export const SIGN_IN = '/sign-in';

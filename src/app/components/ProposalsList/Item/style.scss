@@ -9,10 +9,13 @@
         }
     }
 
-    &.matched::after {
-        content: '✔';
-        color: $green-darker;
-        font-size: 1.5rem;
-        margin: 12px 0 0 15px;
+    .button {
+        &.positive-response {
+            border-right: 8px solid $yellow-darker;
+        }
+
+        &.matched {
+            border-right: 8px solid $green-darker;
+        }
     }
 }

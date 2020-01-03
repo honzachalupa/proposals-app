@@ -1,4 +1,17 @@
 [data-component="ProposalDetail"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5vh;
+
+    .headline {
+        font-size: 22px;
+    }
+
+    .description {
+        margin-top: 2vh;
+    }
+
     .response-button {
         width: 200px;
         min-width: 200px;
@@ -8,14 +21,15 @@
         color: red;
         border: 5px solid red;
         border-radius: 50%;
+        margin: 10vh 0;
 
-        &.response-yes {
+        &.positive-response {
             background-color: $yellow-darker;
             color: white;
             border: none;
         }
 
-        &.is-match {
+        &.matched {
             background-color: $green-darker;
             color: white;
             border: none;
@@ -26,5 +40,9 @@
             font-weight: 500;
             margin-bottom: 10px;
         }
+    }
+
+    .delete-button {
+        margin-top: 3vh;
     }
 }

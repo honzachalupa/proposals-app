@@ -1,8 +1,5 @@
 [data-component="Layout_Main"] {
+    padding: 20px;
     display: flex;
     flex-direction: column;
-
-    @media (max-width: 600px) {
-        flex-direction: column-reverse;
-    }
 }

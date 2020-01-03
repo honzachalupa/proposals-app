@@ -7,6 +7,9 @@ export default interface IProposal {
     responses: {
         [key: string]: boolean;
     };
+    isSensitive: boolean;
     createdBy: string;
-    createdAt: Database.Timestamp;
+    createdOn: Database.Timestamp;
+    updatedBy: string;
+    updatedOn: Database.Timestamp;
 }

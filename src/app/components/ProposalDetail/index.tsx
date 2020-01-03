@@ -7,6 +7,7 @@ import IProposal from 'Interfaces/Proposal';
 import { ROOT } from 'Enums/routes';
 import './style';
 import Button from 'Components/Button';
+import Info from './Info';
 
 interface IProps extends RouteComponentProps {
     proposal: IProposal;
@@ -14,7 +15,6 @@ interface IProps extends RouteComponentProps {
 
 export default withRouter(({ proposal, history }: IProps) => {
     const { currentUser } = useContext(Context);
-    const membersFiltered = proposal.members.filter(member => member !== currentUser);
     const isMatched = Object.values(proposal.responses).filter(reaction => !reaction).length === 0;
 
     const handleSetResponse = () => {
@@ -24,6 +24,8 @@ export default withRouter(({ proposal, history }: IProps) => {
 
         Database.proposals.doc(proposal.id).set({
             ...proposal,
+            updatedOn: Database.getTimestamp(),
+            updatedBy: currentUser,
             responses
         });
     };
@@ -34,29 +36,21 @@ export default withRouter(({ proposal, history }: IProps) => {
 
     return proposal ? (
         <div data-component="ProposalDetail">
-            <h2>{proposal.content}</h2>
+            <p className="headline">{proposal.content}</p>
 
             {proposal.description && (
-                <p>Description: {proposal.description}</p>
+                <p className="description">{proposal.description}</p>
             )}
 
-            <Button className={cx('response-button', { 'response-yes': proposal.responses[currentUser], 'is-match': isMatched })} onClick={handleSetResponse}>
-                {isMatched ? (
-                    <p className="match-status">It's a match!</p>
-                ) : (
-                    <p>Respond</p>
-                )}
+            <Button className={cx('response-button', { 'positive-response': proposal.responses[currentUser], matched: isMatched })} onClick={handleSetResponse}>
+                {isMatched ? <p className="match-status">It's a match!</p> : <p>Respond</p>}
             </Button>
 
-            {proposal.createdBy !== currentUser && (
-                <p>Create by: {proposal.createdBy}</p>
-            )}
+            <Info {...proposal} />
 
-            {membersFiltered.length > 0 && (
-                <p>Members: {membersFiltered.join(', ')}</p>
+            {proposal.createdBy === currentUser && (
+                <Button className="delete-button" label="Delete" onClick={handleDelete} />
             )}
-
-            <Button label="Delete" onClick={handleDelete} />
         </div>
     ) : null;
 });
