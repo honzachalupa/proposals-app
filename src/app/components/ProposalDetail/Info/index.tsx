@@ -16,14 +16,14 @@ export default ({ members, createdBy, createdOn, updatedOn }: IProposal) => {
 
             {createdOn && (
                 <p>Created on: {moment(createdOn.toDate()).format('D.M.YYYY H:mm')}</p>
-            )}''
+            )}
 
             {createdBy !== currentUser && (
                 <p>Create by: {createdBy}</p>
             )}
 
             {membersFiltered.length > 0 && (
-                <p>Members: {membersFiltered.join(', ')}</p>
+                <p>{membersFiltered.length === 1 ? 'Member' : 'Members'}: {membersFiltered.join(', ')}</p>
             )}
         </aside>
     );

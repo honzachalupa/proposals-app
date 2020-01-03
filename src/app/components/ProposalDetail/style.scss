@@ -1,48 +1,70 @@
 [data-component="ProposalDetail"] {
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
     align-items: center;
     padding-top: 5vh;
 
-    .headline {
-        font-size: 22px;
+    @media (max-width: 600px) {
+        flex-direction: column;
     }
 
-    .description {
-        margin-top: 2vh;
-    }
-
-    .response-button {
-        width: 200px;
-        min-width: 200px;
-        height: 200px;
-        min-height: 200px;
-        background-color: transparent;
-        color: red;
-        border: 5px solid red;
-        border-radius: 50%;
-        margin: 10vh 0;
-
-        &.positive-response {
-            background-color: $yellow-darker;
-            color: white;
-            border: none;
+    .container {
+        @media (min-width: 601px) {
+            flex-basis: 50%;
         }
 
-        &.matched {
-            background-color: $green-darker;
-            color: white;
-            border: none;
+        &.main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .headline {
+                font-size: 22px;
+            }
+
+            .description {
+                margin-top: 2vh;
+            }
+
+            .response-button {
+                width: 200px;
+                min-width: 200px;
+                height: 200px;
+                min-height: 200px;
+                background-color: transparent;
+                color: red;
+                border: 5px solid red;
+                border-radius: 50%;
+                margin: 10vh 0;
+
+                &.positive-response {
+                    background-color: $yellow-darker;
+                    color: white;
+                    border: none;
+                }
+
+                &.matched {
+                    background-color: $green-darker;
+                    color: white;
+                    border: none;
+                }
+
+                .match-status {
+                    font-size: 20px;
+                    font-weight: 500;
+                    margin-bottom: 10px;
+                }
+            }
         }
 
-        .match-status {
-            font-size: 20px;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-    }
+        &.secondary {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
-    .delete-button {
-        margin-top: 3vh;
+            .delete-button {
+                margin-top: 3vh;
+            }
+        }
     }
 }

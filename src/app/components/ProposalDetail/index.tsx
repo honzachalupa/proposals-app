@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Context } from '@honzachalupa/helpers';
 import { Database } from 'Helpers';
 import IProposal from 'Interfaces/Proposal';
-import { ROOT } from 'Enums/routes';
+import { ROOT, PROPOSAL_EDIT } from 'Enums/routes';
 import './style';
 import Button from 'Components/Button';
 import Info from './Info';
@@ -36,21 +36,28 @@ export default withRouter(({ proposal, history }: IProps) => {
 
     return proposal ? (
         <div data-component="ProposalDetail">
-            <p className="headline">{proposal.content}</p>
+            <div className="container main">
+                <p className="headline">{proposal.content}</p>
 
-            {proposal.description && (
-                <p className="description">{proposal.description}</p>
-            )}
+                {proposal.description && (
+                    <p className="description">{proposal.description}</p>
+                )}
 
-            <Button className={cx('response-button', { 'positive-response': proposal.responses[currentUser], matched: isMatched })} onClick={handleSetResponse}>
-                {isMatched ? <p className="match-status">It's a match!</p> : <p>Respond</p>}
-            </Button>
+                <Button className={cx('response-button', { 'positive-response': proposal.responses[currentUser], matched: isMatched })} onClick={handleSetResponse}>
+                    {isMatched ? <p className="match-status">It's a match!</p> : <p>Respond</p>}
+                </Button>
+            </div>
 
-            <Info {...proposal} />
+            <div className="container secondary">
+                <Info {...proposal} />
 
-            {proposal.createdBy === currentUser && (
-                <Button className="delete-button" label="Delete" onClick={handleDelete} />
-            )}
+                {(proposal.createdBy === currentUser || currentUser === 'janchalupa@outlook.cz') && (
+                    <React.Fragment>
+                        <Button className="edit-button" label="Edit" onClick={() => history.push(PROPOSAL_EDIT.replace(':id', proposal.id))} />
+                        <Button className="delete-button" label="Delete" onClick={handleDelete} />
+                    </React.Fragment>
+                )}
+            </div>
         </div>
     ) : null;
 });

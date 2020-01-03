@@ -6,14 +6,14 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Context, app } from '@honzachalupa/helpers';
 import { Authentication } from 'Helpers';
-import { INDEX, ROOT, SIGN_UP, SIGN_IN, CREATE_PROPOSAL, PROPOSAL_DETAIL } from 'Enums/routes';
+import { INDEX, ROOT, SIGN_UP, SIGN_IN, CREATE_PROPOSAL, PROPOSAL_DETAIL, PROPOSAL_EDIT } from 'Enums/routes';
 import config from 'app-config';
 import './App.scss';
 import Page_Home from 'Pages/Home';
 import Page_SignUp from 'Pages/SignUp';
 import Page_SignIn from 'Pages/SignIn';
-import Page_CreateProposal from 'Pages/Create';
-import Page_ProposalDetail from 'Pages/Proposal';
+import Page_CreateProposal from 'Pages/Proposal/Create';
+import Page_ProposalDetail from 'Pages/Proposal/Detail';
 import Page_NotFound from 'Pages/NotFound';
 
 interface IState {
@@ -50,6 +50,7 @@ const App = () => {
                     <Route component={Page_SignIn} path={SIGN_IN} exact />
                     <Route component={Page_CreateProposal} path={CREATE_PROPOSAL} exact />
                     <Route component={Page_ProposalDetail} path={PROPOSAL_DETAIL} exact />
+                    <Route component={Page_ProposalDetail} path={PROPOSAL_EDIT} exact />
                     <Route component={Page_NotFound} exact />
                 </Switch>
             </Router>

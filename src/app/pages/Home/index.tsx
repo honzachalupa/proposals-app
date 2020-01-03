@@ -10,6 +10,8 @@ export default () => {
     return (
         <section>
             <Layout>
+                <h1 className="page-title">ProposApp</h1>
+
                 {currentUser && (
                     <ProposalsList />
                 )}

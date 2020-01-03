@@ -9,6 +9,7 @@ import Button from 'Components/Button';
 
 export default withRouter(({ history }) => {
     const { currentUser } = useContext(Context);
+
     const [content, setContent] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [lifeSpan, setLifeSpan] = useState<number>(0);
@@ -59,7 +60,10 @@ export default withRouter(({ history }) => {
             <input type="text" placeholder="Description" onChange={e => setDescription(e.target.value)} />
             <input type="number" placeholder="Life span (in hours)" onChange={e => setLifeSpan(Number(e.target.value))} />
             <input type="text" placeholder="Members (separated with comma) *" onChange={e => setMembers(e.target.value)} required />
-            <input type="checkbox" onChange={e => setIsSensitive(e.target.checked)} />Has sensitive label?
+            <label htmlFor="is-sensitive">
+                <input type="checkbox" onChange={e => setIsSensitive(e.target.checked)} name="is-sensitive" />
+                <span className="label">Has sensitive label?</span>
+            </label>
 
             <Button className="green" label="Create" type="submit" />
         </form>

@@ -126,11 +126,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
     console.log('[ServiceWorker] Fetch', event.request.url);
 
-    event.respondWith(
-        caches.match(event.request).then(response => {
-            return response || fetch(event.request);
-        })
-    );
+    event.respondWith(fetch(event.request));
 });
 
 /* eslint-enable */
