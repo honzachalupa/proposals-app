@@ -4,7 +4,7 @@ import cx from 'classnames';
 import { Context } from '@honzachalupa/helpers';
 import { Database } from 'Helpers';
 import IProposal from 'Interfaces/Proposal';
-import { ROOT, PROPOSAL_EDIT } from 'Enums/routes';
+import { Routes } from 'Enums';
 import './style';
 import Button from 'Components/Button';
 import Info from './Info';
@@ -31,7 +31,7 @@ export default withRouter(({ proposal, history }: IProps) => {
     };
 
     const handleDelete = () => {
-        Database.proposals.doc(proposal.id).delete().then(() => history.push(ROOT));
+        Database.proposals.doc(proposal.id).delete().then(() => history.push(Routes.ROOT));
     };
 
     return proposal ? (
@@ -53,7 +53,7 @@ export default withRouter(({ proposal, history }: IProps) => {
 
                 {(proposal.createdBy === currentUser || currentUser === 'janchalupa@outlook.cz') && (
                     <React.Fragment>
-                        <Button className="edit-button" label="Edit" onClick={() => history.push(PROPOSAL_EDIT.replace(':id', proposal.id))} />
+                        <Button className="edit-button" label="Edit" onClick={() => history.push(Routes.PROPOSAL_EDIT.replace(':id', proposal.id))} />
                         <Button className="delete-button" label="Delete" onClick={handleDelete} />
                     </React.Fragment>
                 )}

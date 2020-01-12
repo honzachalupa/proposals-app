@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import moment from 'moment';
 import { Context } from '@honzachalupa/helpers';
 import { Database } from 'Helpers';
 import IProposal from 'Interfaces/Proposal';
@@ -10,38 +11,54 @@ export default () => {
     const [myProposals, setMyProposals] = useState<IProposal[]>([]);
     const [otherProposals, setOtherProposals] = useState<IProposal[]>([]);
 
+    const getProposals = (queryParameters: [string, any, string], setStateCallback: (proposals: IProposal[]) => void) => {
+        Database.proposals.where(queryParameters[0], queryParameters[1], queryParameters[2]).onSnapshot(querySnapshot => {
+            const proposals: IProposal[] = [];
+
+            querySnapshot.forEach(doc => {
+                proposals.push({
+                    ...doc.data(),
+                    id: doc.id
+                } as IProposal);
+            });
+
+            setStateCallback(proposals);
+        });
+    };
+
+    const setLifeSpanCheck = () => {
+        [...myProposals, ...otherProposals].forEach(proposal => {
+            const updatedAgo = moment.duration(moment().diff(proposal.updatedOn.toDate()));
+            const updatedAgoHours = (updatedAgo.hours() * 60 + updatedAgo.minutes()) / 60;
+
+            if (updatedAgoHours > proposal.lifeSpan) {
+                const responses = {};
+
+                Object.keys(proposal.responses).forEach(emailAddress => {
+                    responses[emailAddress] = false;
+                });
+
+                Database.proposals.doc(proposal.id).set({
+                    ...proposal,
+                    responses,
+                    updatedOn: Database.getTimestamp()
+                });
+            }
+        });
+    };
+
     useEffect(() => {
-        const unsubscribe_myProposals = Database.proposals.where('createdBy', '==', currentUser).onSnapshot(querySnapshot => {
-            const proposals: IProposal[] = [];
+        getProposals(['createdBy', '==', currentUser], setMyProposals);
+        getProposals(['members', 'array-contains', currentUser], setOtherProposals);
 
-            querySnapshot.forEach(doc => {
-                proposals.push({
-                    ...doc.data(),
-                    id: doc.id
-                } as IProposal);
-            });
+        setLifeSpanCheck();
 
-            setMyProposals(proposals);
-        });
-
-        const unsubscribe_otherProposals = Database.proposals.where('members', 'array-contains', currentUser).onSnapshot(querySnapshot => {
-            const proposals: IProposal[] = [];
-
-            querySnapshot.forEach(doc => {
-                proposals.push({
-                    ...doc.data(),
-                    id: doc.id
-                } as IProposal);
-            });
-
-            setOtherProposals(proposals);
-        });
-
-        return () => {
-            unsubscribe_myProposals();
-            unsubscribe_otherProposals();
-        };
+        setInterval(() => setLifeSpanCheck, 10000);
     }, []);
+
+    useEffect(() => {
+        setLifeSpanCheck();
+    }, [myProposals, otherProposals]);
 
     return (
         <div data-component="ProposalsList">

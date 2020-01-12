@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import cx from 'classnames';
 import { Context } from '@honzachalupa/helpers';
-import { PROPOSAL_DETAIL } from 'Enums/routes';
+import { Routes } from 'Enums';
 import './style';
 import Button from 'Components/Button';
 import IProposal from 'Interfaces/Proposal';
@@ -17,7 +17,7 @@ export default withRouter(({ history, id, content, responses, isSensitive }: Rou
             <Button
                 className={cx('button', { 'positive-response': responses[currentUser], matched: isMatched })}
                 label={!isSensitive ? content : '(sensitive label)'}
-                onClick={() => history.push(PROPOSAL_DETAIL.replace(':id', id))}
+                onClick={() => history.push(Routes.PROPOSAL_DETAIL.replace(':id', id))}
             />
         </div>
     );

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Context } from '@honzachalupa/helpers';
 import { Database } from 'Helpers';
-import { ROOT } from 'Enums/routes';
+import { Routes } from 'Enums';
 import IProposal from 'Interfaces/Proposal';
 import './style';
 import Button from 'Components/Button';
@@ -40,7 +40,9 @@ export default withRouter(({ history }) => {
             responses,
             isSensitive,
             createdBy: currentUser,
-            createdOn: Database.getTimestamp()
+            createdOn: Database.getTimestamp(),
+            updatedBy: currentUser,
+            updatedOn: Database.getTimestamp()
         } as IProposal;
     };
 
@@ -49,7 +51,7 @@ export default withRouter(({ history }) => {
 
         Database.proposals.add(composeProposal());
 
-        history.push(ROOT);
+        history.push(Routes.ROOT);
     };
 
     return (

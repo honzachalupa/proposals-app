@@ -6,7 +6,7 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Context, app } from '@honzachalupa/helpers';
 import { Authentication } from 'Helpers';
-import { INDEX, ROOT, SIGN_UP, SIGN_IN, CREATE_PROPOSAL, PROPOSAL_DETAIL, PROPOSAL_EDIT } from 'Enums/routes';
+import { Routes } from 'Enums';
 import config from 'app-config';
 import './App.scss';
 import Page_Home from 'Pages/Home';
@@ -44,13 +44,13 @@ const App = () => {
         <Context.Provider value={{ ...state, ...globalFunctions }}>
             <Router basename={__BASENAME__}>
                 <Switch>
-                    <Route path={INDEX} component={Page_Home} />
-                    <Route path={ROOT} component={Page_Home} exact />
-                    <Route path={SIGN_UP} component={Page_SignUp} exact />
-                    <Route path={SIGN_IN} component={Page_SignIn} exact />
-                    <Route path={CREATE_PROPOSAL} component={Page_CreateProposal} exact />
-                    <Route path={PROPOSAL_DETAIL} component={Page_ProposalDetail} exact />
-                    <Route path={PROPOSAL_EDIT} component={Page_ProposalDetail} exact />
+                    <Route path={Routes.INDEX} component={Page_Home} />
+                    <Route path={Routes.ROOT} component={Page_Home} exact />
+                    <Route path={Routes.SIGN_UP} component={Page_SignUp} exact />
+                    <Route path={Routes.SIGN_IN} component={Page_SignIn} exact />
+                    <Route path={Routes.CREATE_PROPOSAL} component={Page_CreateProposal} exact />
+                    <Route path={Routes.PROPOSAL_DETAIL} component={Page_ProposalDetail} exact />
+                    <Route path={Routes.PROPOSAL_EDIT} component={Page_ProposalDetail} exact />
                     <Route component={Page_NotFound} />
                 </Switch>
             </Router>

@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Authentication } from 'Helpers';
-import { ROOT } from 'Enums/routes';
+import { Routes } from 'Enums';
 import Layout from 'Layouts/Main';
 import Button from 'Components/Button';
 
@@ -15,7 +15,7 @@ export default withRouter(({ history }) => {
 
         if (password === passwordRepeat) {
             Authentication.createUserWithEmailAndPassword(emailAddress, password).then(() => {
-                history.push(ROOT);
+                history.push(Routes.ROOT);
             }).catch(error => {
                 alert(error);
             });

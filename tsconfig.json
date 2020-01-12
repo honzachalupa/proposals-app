@@ -38,8 +38,7 @@
             "Pages/*": ["./app/pages/*"],
             "Images/*": ["./images/*"],
             "Icons/*": ["./images/icons/*"],
-            "Enums": ["./app/enumerators/index.ts"],
-            "Enums/*": ["./app/enumerators/*"],
+            "Enums": ["./app/enumerators.ts"],
             "Interfaces/*": ["./app/interfaces/*"],
             "Helpers": ["./app/helpers.ts"],
             "app-config": ["./app-config.js"]

@@ -1,22 +1,21 @@
 import React, { useContext } from 'react';
-import moment from 'moment';
 import { Context } from '@honzachalupa/helpers';
 import IProposal from 'Interfaces/Proposal';
 import './style';
 
-export default ({ members, createdBy, createdOn, updatedOn }: IProposal) => {
+export default ({ members, createdBy }: IProposal) => {
     const { currentUser } = useContext(Context);
     const membersFiltered = members.filter(member => member !== currentUser);
 
     return (
         <aside data-component="ProposalDetail_Info">
-            {updatedOn && (
+            {/* {updatedOn && (
                 <p>Updated on: {moment(updatedOn.toDate()).format('D.M.YYYY H:mm')}</p>
-            )}
+            )} */}
 
-            {createdOn && (
+            {/* {createdOn && (
                 <p>Created on: {moment(createdOn.toDate()).format('D.M.YYYY H:mm')}</p>
-            )}
+            )} */}
 
             {createdBy !== currentUser && (
                 <p>Create by: {createdBy}</p>

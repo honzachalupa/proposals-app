@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Database } from 'Helpers';
-import { ROOT, PROPOSAL_DETAIL, PROPOSAL_EDIT } from 'Enums/routes';
+import { Routes } from 'Enums';
 import IProposal from 'Interfaces/Proposal';
 import Layout from 'Layouts/Main';
 import ProposalDetail from 'Components/ProposalDetail';
@@ -20,7 +20,7 @@ export default withRouter(({ match: { path, params: { id } }, history }: RouteCo
                     id: doc.id
                 } as IProposal);
             } else {
-                history.push(ROOT);
+                history.push(Routes.ROOT);
             }
         });
     }, []);
@@ -28,11 +28,11 @@ export default withRouter(({ match: { path, params: { id } }, history }: RouteCo
     return proposal ? (
         <section>
             <Layout>
-                {path === PROPOSAL_DETAIL && (
+                {path === Routes.PROPOSAL_DETAIL && (
                     <ProposalDetail proposal={proposal} />
                 )}
 
-                {path === PROPOSAL_EDIT && (
+                {path === Routes.PROPOSAL_EDIT && (
                     <EditProposalForm proposal={proposal} />
                 )}
             </Layout>
